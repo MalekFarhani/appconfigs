@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dotnetapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dotnetapp
+  template:
+    metadata:
+      labels:
+        app: dotnetapp
+    spec:
+      containers:
+        - name: dotnetapp
+          image: devteam1009/dotnetapp:1.0
+          ports:
+            - containerPort: 80
+          env:
+            - name: DB_SOURCE
+              value: "mysql-service"
+            - name: DB_USER
+              value: "root"
+            - name: DB_PASSWORD
+              value: "AdminPassword123!"
+            - name: DB_DATABASE
+              value: "appdb"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dotnet-service
+spec:
+  type: ClusterIP
+  selector:
+    app: dotnetapp
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80

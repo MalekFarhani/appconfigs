@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: achatback
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: achatback
+  template:
+    metadata:
+      labels:
+        app: achatback
+    spec:
+      containers:
+        - name: achatback
+          image: malekkkk/achatbdev:9.0
+          ports:
+            - containerPort: 8089
+          env:
+            - name: DATABASE_HOST
+              value: "mysql-service"
+            - name: DATABASE_USERNAME
+              value: "mysqladmin"
+            - name: DATABASE_PASSWORD
+              value: "AdminPassword123!"
+            - name: DATABASE_NAME
+              value: "achatdb"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-boot-service
+spec:
+  type: ClusterIP
+  selector:
+    app: achatback
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8089
+      targetPort: 8089
