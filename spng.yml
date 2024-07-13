@@ -18,9 +18,9 @@ spec:
           ports:
             - containerPort: 8089
           env:
-            - name: DATABASE_HOST
-              value: "mysql-service"
-            - name: DATABASE_USERNAME
+            - name: DB_HOST
+              value: "mysqlflexserverunique.mysql.database.azure.com"
+            - name: DB_USER
               value: "mysqladmin"
             - name: DATABASE_PASSWORD
               value: "AdminPassword123!"
