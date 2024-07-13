@@ -7,11 +7,11 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  ingressClassName: nginx
   rules:
-  - host: dotnet.example.com
-    http:
+  - http:
       paths:
-      - path: /
+      - path: /dotnet
         pathType: Prefix
         backend:
           service:
@@ -27,14 +27,14 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  ingressClassName: nginx
   rules:
-  - host: grafana.example.com
-    http:
+  - http:
       paths:
-      - path: /
+      - path: /grafana
         pathType: Prefix
         backend:
           service:
-            name: grafana
+            name: prometheus-grafana
             port:
               number: 3000

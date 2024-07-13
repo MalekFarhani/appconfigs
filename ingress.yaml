@@ -13,13 +13,13 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: prometheus-grafana.loki.svc.cluster.local
+            name: prometheus-grafana
             port:
               number: 3000
       - path: /dotnet
         pathType: Prefix
         backend:
           service:
-            name: dotnet-service.default.svc.cluster.local 
+            name: dotnet-service
             port:
               number: 80
