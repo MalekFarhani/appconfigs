@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loki-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loki-demo
+  template:
+    metadata:
+      labels:
+        app: loki-demo
+    spec:
+      containers:
+      - name: loki-demo
+        image: kodekloud/loki-demo:latest
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: loki-demo-service
+spec:
+  selector:
+    app: loki-demo
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP

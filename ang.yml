@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: angular-frontend
-          image: malekkkk/achatfdev:9.0
+          image: malekkkk/achat:29.9
           ports:
             - containerPort: 80
 ---

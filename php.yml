@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: php-app
-          image: devteam1009/php-app:3.0
+          image: malekkkk/phpapp:9.2
           ports:
             - containerPort: 80
           env:

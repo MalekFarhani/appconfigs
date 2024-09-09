@@ -1,54 +1,34 @@
----
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: application
   namespace: default
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
-  ingressClassName: nginx
+  ingressClassName: azure-application-gateway
   rules:
   - http:
       paths:
-      - path: /dotnet
-        pathType: Prefix
+      - path: /dotnet(/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
           service:
             name: dotnet-service
             port:
               number: 80
-      - path: /php
-        pathType: Prefix
+      - path: /php(/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
           service:
             name: php-app-service
             port:
               number: 80
-      - path: /Angular
-        pathType: Prefix
+      - path: /Angular(/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
           service:
             name: angular-service
             port:
               number: 80
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: grafana-ingress
-  namespace: loki
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-spec:
-  ingressClassName: nginx
-  rules:
-  - http:
-      paths:
-      - path: /grafana
-        pathType: Prefix
-        backend:
-          service:
-            name: prometheus-grafana
-            port:
-              number: 3000
