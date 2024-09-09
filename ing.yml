@@ -1,32 +1,31 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: application
+  name: apps-ingress
   namespace: default
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
-    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: nginx
   rules:
   - http:
       paths:
       - path: /dotnet(/|$)(.*)
-        pathType: ImplementationSpecific
+        pathType: Prefix
         backend:
           service:
             name: dotnet-service
             port:
               number: 80
-      - path: /php(/|$)(.*)
-        pathType: ImplementationSpecific
+      - path: /phpapp(/|$)(.*)
+        pathType: Prefix
         backend:
           service:
             name: php-app-service
             port:
               number: 80
-      - path: /Angular(/|$)(.*)
-        pathType: ImplementationSpecific
+      - path: /achat(/|$)(.*)
+        pathType: Prefix
         backend:
           service:
             name: angular-service
